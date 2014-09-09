@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JS相关练习</title>
+    <script src="js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<h3>关于JS事件冒泡</h3>
+
+<form action="post.html" method="post" >
+<div id="father" style="width: 100px;height: 100px;background-color: #ff00ff;">
+    <a id="testevent">测试阻止事件冒泡</a>
+</div>
+</form>
+<script>
+    $(document).ready(function() {
+        $("#father").click(function(){
+            console.log("点击了父类");
+        });
+        $("#testevent").click(function(event){
+            //阻止源生submit事件
+            event.preventDefault();
+            //阻止其他父类的冒泡点击事件
+            event.stopPropagation();
+            //阻止本元素追加事件（会有先后顺序之分）
+            event.stopImmediatePropagation();
+            console.log("第一次为按钮绑定事件");
+            //return false 相当于 event.preventDefault() + event.stopPropagation()
+            return false;
+        });
+        $("#testevent").click(function(event){
+
+            console.log("第二次为按钮绑定事件");
+        });
+    });
+</script>
+</body>
+</html>
